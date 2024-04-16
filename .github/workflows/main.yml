@@ -1,17 +1,17 @@
-version: v1.0
 name: HackKernel
-agent:
-  machine:
-    type: e1-standard-2
-  containers:
-  - name: Masak
-    image: najahi/oven:latest
-blocks:
-  - name: "Build"
-    task:
-      jobs:
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: najahi/oven:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Compile Kernel
-        commands:
-          - checkout
-          - wget https://raw.githubusercontent.com/Kry9toN/Scripts/master/vince/semaphore49
-          - bash semaphore49
+        run: |
+          wget https://raw.githubusercontent.com/Kry9toN/Scripts/master/vince/semaphore49
+          bash semaphore49
