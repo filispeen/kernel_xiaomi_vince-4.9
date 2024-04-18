@@ -8,6 +8,11 @@ jobs:
     container:
       image: najahi/oven:latest
     steps:
+      - name: Setup
+        run: |
+          rm -rf ../../etc/apt/sources.list
+          echo "deb http://old-releases.ubuntu.com/ubuntu/ groovy main restricted universe multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ groovy-updates main restricted universe multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ groovy-security main restricted universe multiverse" >> ../../etc/apt/sources.list
+          cat ../../etc/apt/sources.list
       - name: Checkout
         uses: actions/checkout@v2
       - name: Compile Kernel
