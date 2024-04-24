@@ -18,3 +18,4 @@ jobs:
            echo "/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
            echo $GITHUB_PATH
            echo $CLANG_TRIPLE
+           echo $ACTIONS_ALLOW_UNSECURE_COMMANDS
