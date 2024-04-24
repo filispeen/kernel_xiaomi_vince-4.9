@@ -15,12 +15,6 @@ jobs:
            CROSS_COMPILE_ARM32: arm-linux-gnueabi-
            ARCH: arm64
         run: |
-           echo "::set-env name=CC::clang"
-           echo "::set-env name=CLANG_TRIPLE::aarch64-linux-gnu-"
-           echo "::set-env name=CROSS_COMPILE::aarch64-linux-gnu-"
-           echo "::set-env name=CROSS_COMPILE_ARM32::arm-linux-gnueabi-"
-           echo "::set-env name=ARCH::arm64"
-           echo "/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
+           echo "$GITHUB_PATH:/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
            echo $GITHUB_PATH
-           echo $CLANG_TRIPLE
-           echo $ACTIONS_ALLOW_UNSECURE_COMMANDS
+           echo -e "CC: $CC\nCLANG_TRIPLE: $CLANG_TRIPLE\nCROSS_COMPILE: $CROSS_COMPILE\nCROSS_COMPILE_ARM32: $CROSS_COMPILE_ARM32\nARCH: $ARCH"
