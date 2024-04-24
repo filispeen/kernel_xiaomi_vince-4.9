@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "Starting compilation"
           sleep 1
+          bash compile
           #make ARCH=arm64 O=out CC=clang vince-krypton_defconfig
           #make ARCH=arm64 O=out CC=clang -j$(nproc --all)
-          ls out/arch/arm64/boot/
+          #ls out/arch/arm64/boot/
