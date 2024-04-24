@@ -9,6 +9,11 @@ jobs:
       - name: Setup
         env:
            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+           CC: clang
+           CLANG_TRIPLE: aarch64-linux-gnu-
+           CROSS_COMPILE: aarch64-linux-gnu-
+           CROSS_COMPILE_ARM32: arm-linux-gnueabi-
+           ARCH: arm64
         run: |
            echo "::set-env name=CC::clang"
            echo "::set-env name=CLANG_TRIPLE::aarch64-linux-gnu-"
