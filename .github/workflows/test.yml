@@ -16,6 +16,5 @@ jobs:
            ARCH: arm64
            GITHUB_PATH: $GITHUB_PATH:/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/
         run: |
-           echo "$GITHUB_PATH:/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
            echo $GITHUB_PATH
            echo -e "CC: $CC\nCLANG_TRIPLE: $CLANG_TRIPLE\nCROSS_COMPILE: $CROSS_COMPILE\nCROSS_COMPILE_ARM32: $CROSS_COMPILE_ARM32\nARCH: $ARCH"
