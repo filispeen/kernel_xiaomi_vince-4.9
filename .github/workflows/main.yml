@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: Setup
         run: |
+           echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
            sudo apt install unzip -y
            echo "Downloading"
            wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
