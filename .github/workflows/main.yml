@@ -10,16 +10,16 @@ jobs:
         env:
            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: |
-           sudo apt install unzip -y
-           echo "Downloading"
-           wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
-           echo "Unpacking"
-           unzip -qq 20210522.zip
            echo "::set-env name=CC::clang"
            echo "::set-env name=CLANG_TRIPLE::aarch64-linux-gnu-"
            echo "::set-env name=CROSS_COMPILE::aarch64-linux-gnu-"
            echo "::set-env name=CROSS_COMPILE_ARM32::arm-linux-gnueabi-"
            echo "::set-env name=ARCH::arm64"
+           sudo apt install unzip -y
+           echo "Downloading"
+           wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
+           echo "Unpacking"
+           unzip -qq 20210522.zip
            sudo apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev adb fastboot -y
            echo "/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
            echo $GITHUB_PATH
