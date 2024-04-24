@@ -9,12 +9,13 @@ jobs:
       - name: Setup
         env:
            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+           CC: clang
+           CLANG_TRIPLE: aarch64-linux-gnu-
+           CROSS_COMPILE: aarch64-linux-gnu-
+           CROSS_COMPILE_ARM32: arm-linux-gnueabi-
+           ARCH: arm64
         run: |
-           echo "::set-env name=CC::clang"
-           echo "::set-env name=CLANG_TRIPLE::aarch64-linux-gnu-"
-           echo "::set-env name=CROSS_COMPILE::aarch64-linux-gnu-"
-           echo "::set-env name=CROSS_COMPILE_ARM32::arm-linux-gnueabi-"
-           echo "::set-env name=ARCH::arm64"
+           echo -e "CC: $CC\nCLANG_TRIPLE: $CLANG_TRIPLE\nCROSS_COMPILE: $CROSS_COMPILE\nCROSS_COMPILE_ARM32: $CROSS_COMPILE_ARM32\nARCH: $ARCH"
            sudo apt install unzip -y
            echo "Downloading"
            wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
@@ -27,7 +28,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Compile Default
         run: |
-          ls
+          echo "Starting compilation"
+          sleep 1
           make ARCH=arm64 O=out CC=clang vince-krypton_defconfig
           make ARCH=arm64 O=out CC=clang -j$(nproc --all)
           ls out/arch/arm64/boot/
