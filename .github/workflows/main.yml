@@ -7,28 +7,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-        env:
-           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-           CC: clang
-           CLANG_TRIPLE: aarch64-linux-gnu-
-           CROSS_COMPILE: aarch64-linux-gnu-
-           CROSS_COMPILE_ARM32: arm-linux-gnueabi-
-           ARCH: arm64
+#        env:
+#           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+#           CC: clang
+#           CLANG_TRIPLE: aarch64-linux-gnu-
+#           CROSS_COMPILE: aarch64-linux-gnu-
+#           CROSS_COMPILE_ARM32: arm-linux-gnueabi-
+#           ARCH: arm64
         run: |
-           echo -e "CC: $CC\nCLANG_TRIPLE: $CLANG_TRIPLE\nCROSS_COMPILE: $CROSS_COMPILE\nCROSS_COMPILE_ARM32: $CROSS_COMPILE_ARM32\nARCH: $ARCH"
+           #echo -e "CC: $CC\nCLANG_TRIPLE: $CLANG_TRIPLE\nCROSS_COMPILE: $CROSS_COMPILE\nCROSS_COMPILE_ARM32: $CROSS_COMPILE_ARM32\nARCH: $ARCH"
            sudo apt install unzip -y
            echo "Downloading"
            wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
            echo "Unpacking"
            unzip -qq 20210522.zip
            sudo apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev adb fastboot -y
-           export PATH=$PATH:/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/
+           echo "Writing compiling script"
+           echo -e '#!/usr/bin/env bash\nIMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb\necho "Clone Anykernel"\ngit clone -j$(nproc --all) https://github.com/Kry9toN/AnyKernel3 -b vince AnyKernel\necho "Done"\nexport CC=clang\nexport CLANG_TRIPLE=aarch64-linux-gnu-\nexport CROSS_COMPILE=aarch64-linux-gnu-\nexport CROSS_COMPILE_ARM32=arm-linux-gnueabi-\nexport ARCH=arm64\nexport PATH=$PATH:~/build_kernel/builder/proton-clang-20210522/bin/\nexport KBUILD_BUILD_USER=root\nexport KBUILD_BUILD_HOST=FILISPEEN\nmake O=out ARCH=arm64 vince-krypton_defconfig\nmake -j$(nproc --all) O=out ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- | tee build.log\ncp out/arch/arm64/boot/Image.gz-dtb AnyKernel/zImage\nls out/arch/arm64/boot/\ncd AnyKernel\nzip -r9 KryPtoN-AOSP4.9.zip *\nls\ncd ..' >> compile
       - name: Checkout
         uses: actions/checkout@v2
       - name: Compile Default
         run: |
           echo "Starting compilation"
           sleep 1
-          make ARCH=arm64 O=out CC=clang vince-krypton_defconfig
-          make ARCH=arm64 O=out CC=clang -j$(nproc --all)
+          #make ARCH=arm64 O=out CC=clang vince-krypton_defconfig
+          #make ARCH=arm64 O=out CC=clang -j$(nproc --all)
           ls out/arch/arm64/boot/
