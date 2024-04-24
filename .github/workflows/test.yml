@@ -1,0 +1,20 @@
+name: Test
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        env:
+           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: |
+           echo "::set-env name=CC::clang"
+           echo "::set-env name=CLANG_TRIPLE::aarch64-linux-gnu-"
+           echo "::set-env name=CROSS_COMPILE::aarch64-linux-gnu-"
+           echo "::set-env name=CROSS_COMPILE_ARM32::arm-linux-gnueabi-"
+           echo "::set-env name=ARCH::arm64"
+           echo "/home/runner/work/kernel_xiaomi_vince-4.9/kernel_xiaomi_vince-4.9/proton-clang-20210522/bin/" >> $GITHUB_PATH
+           echo $GITHUB_PATH
+           echo $CLANG_TRIPLE
